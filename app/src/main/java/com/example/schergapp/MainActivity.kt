@@ -4,19 +4,19 @@ import Models.Contact
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import coil.compose.AsyncImage
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -71,48 +71,100 @@ fun DefaultPreview() {
 @Preview(showBackground = true)
 @Composable
 fun ContactCardPreview() {
-    Row {
-        AsyncImage(
-            model = "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg",
-            contentDescription = null,
+    Row (
+        modifier = Modifier.fillMaxSize(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+            ) {
+        Row {
+            AsyncImage(
+                model = "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg",
+                contentDescription = null,
 
-            modifier = Modifier
-            // Set image size to 40 dp
-                .size(55.dp)
-            // Clip image to be shaped as a circle
-                .clip(CircleShape)
-        )
+                modifier = Modifier
+                    // Set image size to 40 dp
+                    .size(55.dp)
+                    // Clip image to be shaped as a circle
+                    .clip(CircleShape)
+            )
 
-        Spacer(modifier = Modifier.width(15.dp))
+            Spacer(modifier = Modifier.width(15.dp))
 
-        Column {
-            Text(text = "Johannes", fontWeight = FontWeight.Bold, fontSize = 20.sp)
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(text = "Will nach Hause", fontStyle = FontStyle.Italic)
+            Column {
+                Text(text = "Johannes", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(text = "Will nach Hause", fontStyle = FontStyle.Italic)
+            }
+        }
+
+        Button(
+            onClick = {},
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Transparent,
+                disabledBackgroundColor = Color.Transparent,
+            ),
+            elevation = null
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_delete),
+                contentDescription = "Löschen",
+
+                // on below line we are setting height
+                // and width for our image.
+                modifier = Modifier
+                    .height(20.dp)
+                    .width(20.dp)
+            )
         }
     }
 }
 
 @Composable
 fun ContactCard(contact: Contact) {
-    Row {
-        AsyncImage(
-            model = contact.image,
-            contentDescription = null,
+    Row (
+        modifier = Modifier.fillMaxSize(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row {
+            AsyncImage(
+                model = contact.image,
+                contentDescription = null,
 
-            modifier = Modifier
-                // Set image size to 40 dp
-                .size(55.dp)
-                // Clip image to be shaped as a circle
-                .clip(CircleShape)
-        )
+                modifier = Modifier
+                    // Set image size to 40 dp
+                    .size(55.dp)
+                    // Clip image to be shaped as a circle
+                    .clip(CircleShape)
+            )
 
-        Spacer(modifier = Modifier.width(15.dp))
+            Spacer(modifier = Modifier.width(15.dp))
 
-        Column {
-            Text(text = contact.name, fontWeight = FontWeight.Bold, fontSize = 20.sp)
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(text = contact.status, fontStyle = FontStyle.Italic)
+            Column {
+                Text(text = contact.name, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(text = contact.status, fontStyle = FontStyle.Italic)
+            }
+        }
+
+        Button(
+            onClick = {},
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Transparent,
+                disabledBackgroundColor = Color.Transparent,
+            ),
+            elevation = null
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_delete),
+                contentDescription = "Löschen",
+
+                // on below line we are setting height
+                // and width for our image.
+                modifier = Modifier
+                    .height(20.dp)
+                    .width(20.dp)
+            )
         }
     }
 }
@@ -132,7 +184,9 @@ fun ContactListPreview() {
 }
 
 @Composable
-fun ContactList(list: MutableList<Contact>) {
+fun ContactList(
+    list: MutableList<Contact>
+) {
     LazyColumn(modifier = Modifier.padding(5.dp)) {
         items(list){
                 contact ->
