@@ -1,6 +1,5 @@
 package com.example.schergapp
 
-import Models.Contact
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,7 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.schergapp.model.Contact
 import com.example.schergapp.ui.theme.SchergAppTheme
+import com.example.schergapp.viewmodel.ContactListViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +34,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
                     //ContactListPreview()
-                    ContactList(contact_list)
+                    ContactListScreen()
                 }
             }
         }
@@ -40,18 +42,18 @@ class MainActivity : ComponentActivity() {
 }
 
 var contact_list: MutableList<Contact> = mutableListOf(
-    Contact("Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact("Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
-    Contact("Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact("Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
-    Contact("Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact("Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
-    Contact("Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact("Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
-    Contact("Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact("Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
-    Contact("Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact("Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
+    Contact(1, "Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
+    Contact(2, "Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
+    Contact(3, "Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
+    Contact(4, "Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
+    Contact(5, "Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
+    Contact(6, "Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
+    Contact(7, "Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
+    Contact(8, "Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
+    Contact(9, "Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
+    Contact(10, "Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
+    Contact(11, "Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
+    Contact(12, "Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
 
 )
 
@@ -120,7 +122,10 @@ fun ContactCardPreview() {
 }
 
 @Composable
-fun ContactCard(contact: Contact) {
+fun ContactCard(
+    contact: Contact,
+    onDelete: (entry: Contact) -> Unit
+    ) {
     Row (
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -141,14 +146,14 @@ fun ContactCard(contact: Contact) {
             Spacer(modifier = Modifier.width(15.dp))
 
             Column {
-                Text(text = contact.name, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Text(text = contact.firstname, fontWeight = FontWeight.Bold, fontSize = 20.sp)
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(text = contact.status, fontStyle = FontStyle.Italic)
+                Text(text = contact.lastname, fontStyle = FontStyle.Italic)
             }
         }
 
         Button(
-            onClick = {},
+            onClick = { onDelete(contact) },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Transparent,
                 disabledBackgroundColor = Color.Transparent,
@@ -185,12 +190,13 @@ fun ContactListPreview() {
 
 @Composable
 fun ContactList(
-    list: MutableList<Contact>
+    list: MutableList<Contact>,
+    onDelete: (entry: Contact) -> Unit
 ) {
     LazyColumn(modifier = Modifier.padding(5.dp)) {
         items(list){
                 contact ->
-            ContactCard(contact)
+            ContactCard(contact, onDelete)
             HorizontalDivider()
         }
     }
@@ -203,4 +209,14 @@ fun HorizontalDivider() {
     Divider(startIndent = 8.dp, color = Color.Black)
     Spacer(modifier = Modifier.height(7.dp))
 
+}
+
+@Composable
+fun ContactListScreen(
+    contactListViewModel: ContactListViewModel = viewModel()
+) {
+    ContactList(
+        list = contactListViewModel.list,
+        onDelete = { entry -> contactListViewModel.remove(entry) }
+    )
 }
