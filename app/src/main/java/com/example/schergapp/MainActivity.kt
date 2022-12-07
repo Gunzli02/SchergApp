@@ -38,14 +38,8 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
                     //ContactListPreview()
-                    // TODO Right place or viewmodel?
                     val listViewModel: ContactListViewModel = viewModel()
-                    if(listViewModel.isNeedsRefresh) {
-                        val th = Thread(Runnable {
-                            listViewModel.initializeList(contactRepository.getAll().toMutableList())
-                        })
-                        th.start()
-                    }
+                    listViewModel.loadListFromAPI()
                     ContactListScreen(listViewModel, contactRepository)
                 }
             }
@@ -230,7 +224,6 @@ fun ContactListScreen(
 ) {
     val deleteCallback = fun(entry: Contact) {
         contactListViewModel.remove(entry)
-        contactRepository.delete(entry.id)
     }
     ContactList(
         list = contactListViewModel.list,

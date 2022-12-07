@@ -20,15 +20,16 @@ class ContactRepository() : IRepository {
         contactsApi = rf.create(ContactsApiService::class.java)
     }
 
-    override fun getAll(): List<Contact> {
+    override suspend fun getAll(): List<Contact> {
         return try {
-            val response: Response<List<Contact>> = contactsApi.getContacts().execute()
+            val response: Response<List<Contact>> = contactsApi.getContacts()
             if(!response.isSuccessful) {
                 mutableListOf<Contact>()
             }else {
                 response.body() ?: mutableListOf<Contact>()
             }
         }catch (e: Exception) {
+            e.printStackTrace()
             mutableListOf<Contact>()
         }
     }
@@ -37,13 +38,12 @@ class ContactRepository() : IRepository {
         TODO("Not yet implemented")
     }
 
-    override fun delete(id: Int) {
+    override suspend fun delete(id: Int) {
         try {
-            val th = Thread(Runnable {
-                contactsApi.deleteContact(id).execute()
-            })
-            th.start()
-        } catch (ignored: Exception) {  }
+            contactsApi.deleteContact(id)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun update(model: IModel) {
