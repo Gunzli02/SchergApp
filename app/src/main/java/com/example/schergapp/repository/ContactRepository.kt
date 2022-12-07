@@ -34,7 +34,7 @@ class ContactRepository() : IRepository {
         }
     }
 
-    override fun getByID(id: Int): Contact {
+    override suspend fun getByID(id: Int): Contact {
         TODO("Not yet implemented")
     }
 
@@ -46,11 +46,11 @@ class ContactRepository() : IRepository {
         }
     }
 
-    override fun update(model: IModel) {
+    override suspend fun update(model: IModel) {
         TODO("Not yet implemented")
     }
 
-    override fun create(model: IModel) {
+    override suspend fun create(model: IModel) {
         TODO("Not yet implemented")
     }
 }

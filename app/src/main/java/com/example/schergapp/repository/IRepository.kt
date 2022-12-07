@@ -5,9 +5,9 @@ import com.example.schergapp.model.IModel
 interface IRepository {
 
     suspend fun getAll(): List<IModel>
-    fun getByID(id: Int): IModel
+    suspend fun getByID(id: Int): IModel
     suspend fun delete(id: Int)
-    fun update(model: IModel)
-    fun create(model: IModel)
+    suspend fun update(model: IModel)
+    suspend fun create(model: IModel)
 
 }
