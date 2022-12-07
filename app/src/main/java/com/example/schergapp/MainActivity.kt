@@ -23,10 +23,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.schergapp.model.Contact
+import com.example.schergapp.repository.ContactRepository
 import com.example.schergapp.ui.theme.SchergAppTheme
 import com.example.schergapp.viewmodel.ContactListViewModel
 
 class MainActivity : ComponentActivity() {
+
+    val contactRepository: ContactRepository = ContactRepository()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -34,7 +38,15 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
                     //ContactListPreview()
-                    ContactListScreen()
+                    // TODO Right place or viewmodel?
+                    val listViewModel: ContactListViewModel = viewModel()
+                    if(listViewModel.isNeedsRefresh) {
+                        val th = Thread(Runnable {
+                            listViewModel.initializeList(contactRepository.getAll().toMutableList())
+                        })
+                        th.start()
+                    }
+                    ContactListScreen(listViewModel, contactRepository)
                 }
             }
         }
@@ -213,10 +225,15 @@ fun HorizontalDivider() {
 
 @Composable
 fun ContactListScreen(
-    contactListViewModel: ContactListViewModel = viewModel()
+    contactListViewModel: ContactListViewModel = viewModel(),
+    contactRepository: ContactRepository
 ) {
+    val deleteCallback = fun(entry: Contact) {
+        contactListViewModel.remove(entry)
+        contactRepository.delete(entry.id)
+    }
     ContactList(
         list = contactListViewModel.list,
-        onDelete = { entry -> contactListViewModel.remove(entry) }
+        onDelete = { entry -> deleteCallback(entry) }
     )
 }
