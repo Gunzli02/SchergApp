@@ -158,9 +158,9 @@ fun ContactCard(
             Spacer(modifier = Modifier.width(15.dp))
 
             Column {
-                Text(text = contact.firstname, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Text(text = contact.name, fontWeight = FontWeight.Bold, fontSize = 20.sp)
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(text = contact.lastname, fontStyle = FontStyle.Italic)
+                Text(text = contact.status, fontStyle = FontStyle.Italic)
             }
         }
 
