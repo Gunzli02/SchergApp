@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import coil.compose.AsyncImage
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,8 +22,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.schergapp.ui.theme.SchergAppTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import com.example.schergapp.ui.theme.SchergAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,20 +41,80 @@ class MainActivity : ComponentActivity() {
 }
 
 var contact_list: MutableList<Contact> = mutableListOf(
-    Contact(1,"Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact(2, "Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
-    Contact(3, "Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact(4, "Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
-    Contact(5,"Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact(6,"Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
-    Contact(7,"Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact(8,"Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
-    Contact(9,"Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact(10,"Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
-    Contact(11,"Johannes", "will nach Hause", "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"),
-    Contact(12,"Dennis", "will nicht mehr", "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"),
+    Contact(
+        1,
+        "Johannes",
+        "will nach Hause",
+        "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"
+    ),
+    Contact(
+        2,
+        "Dennis",
+        "will nicht mehr",
+        "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"
+    ),
+    Contact(
+        3,
+        "Johannes",
+        "will nach Hause",
+        "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"
+    ),
+    Contact(
+        4,
+        "Dennis",
+        "will nicht mehr",
+        "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"
+    ),
+    Contact(
+        5,
+        "Johannes",
+        "will nach Hause",
+        "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"
+    ),
+    Contact(
+        6,
+        "Dennis",
+        "will nicht mehr",
+        "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"
+    ),
+    Contact(
+        7,
+        "Johannes",
+        "will nach Hause",
+        "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"
+    ),
+    Contact(
+        8,
+        "Dennis",
+        "will nicht mehr",
+        "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"
+    ),
+    Contact(
+        9,
+        "Johannes",
+        "will nach Hause",
+        "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"
+    ),
+    Contact(
+        10,
+        "Dennis",
+        "will nicht mehr",
+        "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"
+    ),
+    Contact(
+        11,
+        "Johannes",
+        "will nach Hause",
+        "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg"
+    ),
+    Contact(
+        12,
+        "Dennis",
+        "will nicht mehr",
+        "https://p6.focus.de/img/fotos/id_219232/traxxx-wassertemperaturen.jpg?im=Resize%3D%28800%2C481%29&impolicy=perceptual&quality=medium&hash=472dabfc72636d656f3015a10ff93b133aa9538f52acda0c81d942c6f5b251a0"
+    ),
 
-)
+    )
 
 @Composable
 fun Greeting(name: String) {
@@ -72,11 +132,11 @@ fun DefaultPreview() {
 @Preview(showBackground = true)
 @Composable
 fun ContactCardPreview() {
-    Row (
+    Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
-            ) {
+    ) {
         Row {
             AsyncImage(
                 model = "https://www.shutterstock.com/image-photo/beautiful-sunset-tropical-beach-palm-260nw-1716193708.jpg",
@@ -121,10 +181,11 @@ fun ContactCardPreview() {
 }
 
 @Composable
-fun ContactCard(contact: Contact,
-                onClose: (Contact) -> Unit
+fun ContactCard(
+    contact: Contact,
+    onClose: (Contact) -> Unit
 ) {
-    Row (
+    Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -151,7 +212,7 @@ fun ContactCard(contact: Contact,
         }
 
         Button(
-            onClick = {onClose(contact)},
+            onClick = { onClose(contact) },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Transparent,
                 disabledBackgroundColor = Color.Transparent,
@@ -176,11 +237,11 @@ fun ContactCard(contact: Contact,
 fun ContactScreen(
     modifier: Modifier = Modifier,
     contactViewModel: ContactViewModel = viewModel()
-){
+) {
     Column(modifier = modifier) {
 
         ContactList(
-            list = contactViewModel.contacts,
+            list = contactViewModel.sanityCheck(),
             onCloseContact = { contact -> contactViewModel.remove(contact) })
     }
 }
@@ -188,7 +249,7 @@ fun ContactScreen(
 @Preview
 @Composable
 fun ContactListPreview() {
-    LazyColumn ( modifier = Modifier.padding(10.dp)) {
+    LazyColumn(modifier = Modifier.padding(10.dp)) {
         items(20) {
             ContactCardPreview()
             HorizontalDivider()
@@ -205,8 +266,7 @@ fun ContactList(
     onCloseContact: (Contact) -> Unit
 ) {
     LazyColumn(modifier = Modifier.padding(5.dp)) {
-        items(list){
-                contact ->
+        items(list) { contact ->
             ContactCard(contact, onClose = { onCloseContact(contact) })
             HorizontalDivider()
         }
